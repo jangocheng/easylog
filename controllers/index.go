@@ -22,6 +22,10 @@ func (this *IndexController) Log() {
 	content := this.GetString("content")
 	appname := this.GetString("appname")
 
+	if appname == "" || content == "" {
+		this.Data["json"] = json.VendorError(500,"miss appname or content")
+		this.ServeJSON()
+	}
 	go func() {
 		log := new(models.Log)
 
